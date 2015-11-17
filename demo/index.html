@@ -20,28 +20,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <p>An example of <code>&lt;wunderground-forecast&gt;</code>:</p>
 
-    <p>Make words! <button id="saybtn">Say Something</button></p>
-    <p>Make lasers! <button id="laserbtn">Fire lasers</button></p>
 
-    <wunderground-forecast author='{"name": "Lord Meowser", "image": "http://placekitten.com/g/200/300"}' fancy>
-      <h2>Hello wunderground-forecast</h2>
+    <wunderground-forecast api="demo">
     </wunderground-forecast>
 
     <script>
       var seedElement = document.querySelector('wunderground-forecast');
-      
-      document.querySelector('#saybtn').addEventListener('click', function() {
-        alert(seedElement.sayHello('Hallo!'));
-      });
-      
-      document.querySelector('#laserbtn').addEventListener('click', function() {
-        seedElement.fireLasers();
-      });
-      
-      document.addEventListener("wunderground-forecast-lasers", function(e) {
-        console.log(e.detail.sound);
-      });
-      
+      seedElement.loadForecast();
+
+
     </script>
 
   </body>

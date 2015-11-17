@@ -110,6 +110,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('get forecast', function(done) {
         myEl.addEventListener('wunderground-forecast-loaded', function(event) {
           expect(myEl._data).to.be.ok;
+          expect(myEl._data.simpleforecast).to.be.ok;
+          expect(myEl._data.txt_forecast).to.be.ok;
+          expect(myEl._data.txt_forecast.forecastday).to.be.length(8);
+          var today = myEl._data.txt_forecast.forecastday[0];
+          expect(today).to.be.ok;
+
+          expect(today.period).to.equal(0);
+          expect(today.icon).to.equal('rain');
+          expect(today.title).to.equal('Tuesday');
+
+
+          console.log('today',today);
           done();
         });
         myEl.loadForecast();
