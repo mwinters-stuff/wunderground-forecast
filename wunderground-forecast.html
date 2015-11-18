@@ -5,7 +5,6 @@ Copyright (c) 2015 Mathew Winters. All rights reserved.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../iron-image/iron-image.html">
-<link rel="import" href="../iron-ajax/iron-request.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="../paper-styles/color.html">
@@ -76,7 +75,6 @@ Example:
       </template>
     </div>
     <iron-ajax id="forecastLoader" url="[[_url]]" handle-as="json" on-response="_handleResponse"></iron-ajax>
-    <!-- <iron-request id="forecastLoader"></iron-request> -->
   </template>
 
 </dom-module>
@@ -90,11 +88,14 @@ Example:
 
       /**
        * `key` is your weather underground api key.
+       *
+       * Use `demo` to load the demo data.
        */
       key: String,
 
       /**
        * `country` is the country, eg NZ or New Zealand.
+       *
        * Or state for US Forecasts
        */
       country: String,
@@ -104,16 +105,33 @@ Example:
        */
       city: String,
 
+      /**
+       * `updateHours` is the number of hours between updateHours
+       *
+       * Use 0 to disable.
+       */
+      updateHours:{
+        type: Number,
+        value: 2
+      },
+
       _data: Object,
       _url: String,
 
     },
     // Element Behavior
 
+    attached: function() {
+      this.loadForecast();
+      window.setInterval(function(){
+        this.loadForecast();
+      }.bind(this),1000 * 60 * this.updateHours);
+    },
+
     /**
      * The `wunderground-forecast-loaded` event is fired whenever the forecast is updated
      *
-     * @event wunderground-forecast-lasers
+     * @event wunderground-forecast-loaded
      */
     _forecastLoaded: function() {
       this.fire('wunderground-forecast-loaded');
