@@ -50,7 +50,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         server = sinon.fakeServer.create();
         server.respondWith(
           'GET',
-          /\/api\/test\/geolookup\/conditions\/forecast\/q\/NZ\/CHC.json/, [
+
+          'http://api.wunderground.com/api/test/geolookup/conditions/forecast/q/NZ/CHC.json', [
             200,
             {'Content-Type': 'application/json'},
             '{ "response": { "version": "0.1", "termsofService": "http://www.wunderground.com/weather/api/d/terms.html", "features": { "forecast": 1 } },'+

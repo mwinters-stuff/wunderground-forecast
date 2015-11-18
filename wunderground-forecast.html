@@ -5,8 +5,10 @@ Copyright (c) 2015 Mathew Winters. All rights reserved.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../iron-image/iron-image.html">
-<link rel="import" href="../iron-image/iron-image.html">
-
+<link rel="import" href="../iron-ajax/iron-request.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-styles/typography.html">
+<link rel="import" href="../paper-styles/color.html">
 <!--
 An element providing a 3 day forecast from weatherunderground
 
@@ -24,37 +26,62 @@ Example:
   <template>
     <style>
       :host {
-        display: block;
-        box-sizing: border-box;
+        /*display: block;
+        box-sizing: border-box;*/
+        @apply(--paper-font-caption);
       }
-      div.horizontal_temps{
-
+      div.outer {
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+        @apply(--layout-start);
       }
 
-/*url="http://api.wunderground.com/api/[[key]]/geolookup/conditions/forecast/q/[[country]]/[[city]].json" */
+      div.wrapper {
+        width: auto;
+        margin-left: 4px;
+        margin-right: 4px;
+         @apply(--layout-vertical);
+         @apply(--layout-center);
+         /*@apply(--layout-flex);*/
+      }
+
+      div.horizontal_temps {
+         @apply(--layout-horizontal);
+      }
+      div.temp_high {
+        color: var(--paper-red-900);
+        font-weight: bold;
+      }
+      div.temp_low {
+        color: var(--paper-blue-900);
+        font-weight: bold;
+      }
     </style>
-    <div>
-      <div class="forecastdate">[[_data.simpleforecast.forecastday.0.date.weekday_short]] [[_data.simpleforecast.forecastday.0.date.day]] / [[_data.simpleforecast.forecastday.0.date.month]]</div>
-      <div>
-        <div class="temp_high">[[_data.simpleforecast.forecastday.0.high.celsius]]</div>
-        <div class="temp_low">[[_data.simpleforecast.forecastday.0.low.celsius]]</div>
-      </div>
-      <iron-image src="[[_data.txt_forecast.forecastday.0.icon_url]]"
-      sizing="cover" preload fade
-      style="width:50px; height:50px; background-color: lightgray;" ></iron-image>
-      <div class="conditions">[[_data.simpleforecast.forecastday.0.conditions]]</div>
-    </div>
-    <iron-ajax id="forecastLoader"
+    <div class="outer">
 
-      url="test/forecast.json"
-      handle-as="json"
-      on-response="handleResponse"></iron-ajax>
+      <template is="dom-repeat" items="[[_data.simpleforecast.forecastday]]">
+        <div class="wrapper">
+          <div class="forecastdate">[[item.date.weekday_short]] [[item.date.day]]/[[item.date.month]]</div>
+          <div class="horizontal_temps">
+            <div class="temp_high">[[item.high.celsius]]</div>&nbsp/&nbsp
+            <div class="temp_low">[[item.low.celsius]]</div>
+          </div>
+          <iron-image src="[[item.icon_url]]" sizing="cover" preload fade style="width:50px; height:50px;"></iron-image>
+          <div class="conditions">[[item.conditions]]</div>
+        </div>
+      </template>
+    </div>
+    <iron-ajax id="forecastLoader" url="[[_url]]" handle-as="json" on-response="_handleResponse"></iron-ajax>
+    <!-- <iron-request id="forecastLoader"></iron-request> -->
   </template>
 
 </dom-module>
 
 <script>
-
   Polymer({
 
     is: 'wunderground-forecast',
@@ -75,79 +102,36 @@ Example:
       /**
        * `city` is the city, eg CHC or Christchurch.
        */
-      country: String,
+      city: String,
 
       _data: Object,
-
+      _url: String,
 
     },
-
-    // Element Lifecycle
-
-    ready: function() {
-      // `ready` is called after all elements have been configured, but
-      // propagates bottom-up. This element's children are ready, but parents
-      // are not.
-      //
-      // This is the point where you should make modifications to the DOM (when
-      // necessary), or kick off any processes the element wants to perform.
-    },
-
-    attached: function() {
-      // `attached` fires once the element and its parents have been inserted
-      // into a document.
-      //
-      // This is a good place to perform any work related to your element's
-      // visual state or active behavior (measuring sizes, beginning animations,
-      // loading resources, etc).
-    },
-
-    detached: function() {
-      // The analog to `attached`, `detached` fires when the element has been
-      // removed from a document.
-      //
-      // Use this to clean up anything you did in `attached`.
-    },
-
     // Element Behavior
 
     /**
-     * The `wunderground-forecast-lasers` event is fired whenever `fireLasers` is called.
+     * The `wunderground-forecast-loaded` event is fired whenever the forecast is updated
      *
      * @event wunderground-forecast-lasers
-     * @detail {{sound: String}}
      */
-
-    /**
-     * Sometimes it's just nice to say hi.
-     *
-     * @param {string} greeting A positive greeting.
-     * @return {string} The full greeting.
-     */
-    sayHello: function(greeting) {
-      var response = greeting || 'Hello World!';
-      return 'wunderground-forecast says, ' + response;
-    },
-
-    /**
-     * Dispatch an event to notify the forecast has been loaded.
-     */
-    forecastLoaded: function() {
+    _forecastLoaded: function() {
       this.fire('wunderground-forecast-loaded');
     },
 
-    loadForecast: function(){
+    /**
+     * The loadForecast method will load or update the forecast.
+     */
+    loadForecast: function() {
+      this._url = this.key === "demo" ? "../test/forecast.json" : "http://api.wunderground.com/api/" + this.key + "/geolookup/conditions/forecast/q/" + this.country + "/" + this.city + ".json";
       this.$.forecastLoader.generateRequest();
     },
 
-    handleResponse: function(response){
-      console.log(response);
+    _handleResponse: function(response) {
+//      console.log(response);
       this._data = response.detail.response.forecast;
-
-
-      this.forecastLoaded();
+      this._forecastLoaded();
     },
 
   });
-
 </script>
