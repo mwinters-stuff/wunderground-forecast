@@ -141,7 +141,7 @@ Example:
      * The loadForecast method will load or update the forecast.
      */
     loadForecast: function() {
-      this._url = this.key === "demo" ? "forecast.json" : "http://api.wunderground.com/api/" + this.key + "/geolookup/conditions/forecast/q/" + this.country + "/" + this.city + ".json";
+      this._url = this.key === "demo" ? "../forecast.json" : "http://api.wunderground.com/api/" + this.key + "/geolookup/conditions/forecast/q/" + this.country + "/" + this.city + ".json";
       this.$.forecastLoader.generateRequest();
     },
 
