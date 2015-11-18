@@ -1,0 +1,374 @@
+{
+  "response": {
+    "version": "0.1",
+    "termsofService": "http://www.wunderground.com/weather/api/d/terms.html",
+    "features": {
+      "forecast": 1
+    }
+  },
+  "forecast": {
+    "txt_forecast": {
+      "date": "11:23 AM NZDT",
+      "forecastday": [{
+        "period": 0,
+        "icon": "rain",
+        "icon_url": "http://icons.wxug.com/i/c/k/rain.gif",
+        "title": "Tuesday",
+        "fcttext": "Rain likely. Becoming windy in the afternoon. High near 65F. Winds SSE at 20 to 30 mph. Chance of rain 70%.",
+        "fcttext_metric": "Rain likely. High 19C. Winds SE at 25 to 40 km/h. Chance of rain 70%.",
+        "pop": "70"
+      }, {
+        "period": 1,
+        "icon": "nt_chancerain",
+        "icon_url": "http://icons.wxug.com/i/c/k/nt_chancerain.gif",
+        "title": "Tuesday Night",
+        "fcttext": "Cloudy skies with periods of light rain late. Low near 45F. Winds S at 5 to 10 mph. Chance of rain 70%.",
+        "fcttext_metric": "Cloudy with light rain developing after midnight. Low 7C. Winds S at 10 to 15 km/h. Chance of rain 70%.",
+        "pop": "70"
+      }, {
+        "period": 2,
+        "icon": "partlycloudy",
+        "icon_url": "http://icons.wxug.com/i/c/k/partlycloudy.gif",
+        "title": "Wednesday",
+        "fcttext": "Windy with a few clouds from time to time. High 54F. Winds SSW at 20 to 30 mph.",
+        "fcttext_metric": "Partly to mostly cloudy and windy. High 12C. Winds SSW at 30 to 50 km/h.",
+        "pop": "20"
+      }, {
+        "period": 3,
+        "icon": "nt_partlycloudy",
+        "icon_url": "http://icons.wxug.com/i/c/k/nt_partlycloudy.gif",
+        "title": "Wednesday Night",
+        "fcttext": "Partly cloudy. Low 39F. SW winds shifting to N at 10 to 20 mph.",
+        "fcttext_metric": "Partly cloudy skies. Low 4C. SW winds shifting to N at 15 to 30 km/h.",
+        "pop": "0"
+      }, {
+        "period": 4,
+        "icon": "partlycloudy",
+        "icon_url": "http://icons.wxug.com/i/c/k/partlycloudy.gif",
+        "title": "Thursday",
+        "fcttext": "Mostly sunny skies. Becoming windy during the afternoon. High 62F. Winds NE at 20 to 30 mph.",
+        "fcttext_metric": "Sunshine in the morning followed by partly cloudy skies and gusty winds during the afternoon. High 17C. Winds NE at 30 to 50 km/h.",
+        "pop": "0"
+      }, {
+        "period": 5,
+        "icon": "nt_partlycloudy",
+        "icon_url": "http://icons.wxug.com/i/c/k/nt_partlycloudy.gif",
+        "title": "Thursday Night",
+        "fcttext": "A few clouds from time to time. Low 51F. Winds NE at 10 to 20 mph.",
+        "fcttext_metric": "Partly cloudy. Low near 10C. Winds NNE at 15 to 30 km/h.",
+        "pop": "0"
+      }, {
+        "period": 6,
+        "icon": "chancerain",
+        "icon_url": "http://icons.wxug.com/i/c/k/chancerain.gif",
+        "title": "Friday",
+        "fcttext": "Considerable cloudiness. Occasional rain showers in the afternoon. High around 70F. NNE winds shifting to WNW at 15 to 25 mph. Chance of rain 40%.",
+        "fcttext_metric": "Becoming windy with showers developing later in the day. High 21C. NE winds shifting to WNW at 30 to 50 km/h. Chance of rain 40%.",
+        "pop": "40"
+      }, {
+        "period": 7,
+        "icon": "nt_partlycloudy",
+        "icon_url": "http://icons.wxug.com/i/c/k/nt_partlycloudy.gif",
+        "title": "Friday Night",
+        "fcttext": "Partly cloudy. Low 47F. Winds WNW at 10 to 15 mph.",
+        "fcttext_metric": "A few clouds. Low 8C. Winds WNW at 15 to 25 km/h.",
+        "pop": "20"
+      }]
+    },
+    "simpleforecast": {
+      "forecastday": [{
+        "date": {
+          "epoch": "1447740000",
+          "pretty": "7:00 PM NZDT on November 17, 2015",
+          "day": 17,
+          "month": 11,
+          "year": 2015,
+          "yday": 320,
+          "hour": 19,
+          "min": "00",
+          "sec": 0,
+          "isdst": "1",
+          "monthname": "November",
+          "monthname_short": "Nov",
+          "weekday_short": "Tue",
+          "weekday": "Tuesday",
+          "ampm": "PM",
+          "tz_short": "NZDT",
+          "tz_long": "Pacific/Auckland"
+        },
+        "period": 1,
+        "high": {
+          "fahrenheit": "65",
+          "celsius": "18"
+        },
+        "low": {
+          "fahrenheit": "45",
+          "celsius": "7"
+        },
+        "conditions": "Rain",
+        "icon": "rain",
+        "icon_url": "http://icons.wxug.com/i/c/k/rain.gif",
+        "skyicon": "",
+        "pop": 70,
+        "qpf_allday": {
+          "in": 0.15,
+          "mm": 4
+        },
+        "qpf_day": {
+          "in": 0.09,
+          "mm": 2
+        },
+        "qpf_night": {
+          "in": 0.06,
+          "mm": 2
+        },
+        "snow_allday": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "snow_day": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "snow_night": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "maxwind": {
+          "mph": 30,
+          "kph": 48,
+          "dir": "SSE",
+          "degrees": 147
+        },
+        "avewind": {
+          "mph": 20,
+          "kph": 32,
+          "dir": "SSE",
+          "degrees": 147
+        },
+        "avehumidity": 67,
+        "maxhumidity": 0,
+        "minhumidity": 0
+      }, {
+        "date": {
+          "epoch": "1447826400",
+          "pretty": "7:00 PM NZDT on November 18, 2015",
+          "day": 18,
+          "month": 11,
+          "year": 2015,
+          "yday": 321,
+          "hour": 19,
+          "min": "00",
+          "sec": 0,
+          "isdst": "1",
+          "monthname": "November",
+          "monthname_short": "Nov",
+          "weekday_short": "Wed",
+          "weekday": "Wednesday",
+          "ampm": "PM",
+          "tz_short": "NZDT",
+          "tz_long": "Pacific/Auckland"
+        },
+        "period": 2,
+        "high": {
+          "fahrenheit": "54",
+          "celsius": "12"
+        },
+        "low": {
+          "fahrenheit": "39",
+          "celsius": "4"
+        },
+        "conditions": "Partly Cloudy",
+        "icon": "partlycloudy",
+        "icon_url": "http://icons.wxug.com/i/c/k/partlycloudy.gif",
+        "skyicon": "",
+        "pop": 20,
+        "qpf_allday": {
+          "in": 0.00,
+          "mm": 0
+        },
+        "qpf_day": {
+          "in": 0.00,
+          "mm": 0
+        },
+        "qpf_night": {
+          "in": 0.00,
+          "mm": 0
+        },
+        "snow_allday": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "snow_day": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "snow_night": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "maxwind": {
+          "mph": 30,
+          "kph": 48,
+          "dir": "SSW",
+          "degrees": 205
+        },
+        "avewind": {
+          "mph": 21,
+          "kph": 34,
+          "dir": "SSW",
+          "degrees": 205
+        },
+        "avehumidity": 54,
+        "maxhumidity": 0,
+        "minhumidity": 0
+      }, {
+        "date": {
+          "epoch": "1447912800",
+          "pretty": "7:00 PM NZDT on November 19, 2015",
+          "day": 19,
+          "month": 11,
+          "year": 2015,
+          "yday": 322,
+          "hour": 19,
+          "min": "00",
+          "sec": 0,
+          "isdst": "1",
+          "monthname": "November",
+          "monthname_short": "Nov",
+          "weekday_short": "Thu",
+          "weekday": "Thursday",
+          "ampm": "PM",
+          "tz_short": "NZDT",
+          "tz_long": "Pacific/Auckland"
+        },
+        "period": 3,
+        "high": {
+          "fahrenheit": "62",
+          "celsius": "17"
+        },
+        "low": {
+          "fahrenheit": "51",
+          "celsius": "11"
+        },
+        "conditions": "Partly Cloudy",
+        "icon": "partlycloudy",
+        "icon_url": "http://icons.wxug.com/i/c/k/partlycloudy.gif",
+        "skyicon": "",
+        "pop": 0,
+        "qpf_allday": {
+          "in": 0.00,
+          "mm": 0
+        },
+        "qpf_day": {
+          "in": 0.00,
+          "mm": 0
+        },
+        "qpf_night": {
+          "in": 0.00,
+          "mm": 0
+        },
+        "snow_allday": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "snow_day": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "snow_night": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "maxwind": {
+          "mph": 30,
+          "kph": 48,
+          "dir": "NE",
+          "degrees": 51
+        },
+        "avewind": {
+          "mph": 21,
+          "kph": 34,
+          "dir": "NE",
+          "degrees": 51
+        },
+        "avehumidity": 60,
+        "maxhumidity": 0,
+        "minhumidity": 0
+      }, {
+        "date": {
+          "epoch": "1447999200",
+          "pretty": "7:00 PM NZDT on November 20, 2015",
+          "day": 20,
+          "month": 11,
+          "year": 2015,
+          "yday": 323,
+          "hour": 19,
+          "min": "00",
+          "sec": 0,
+          "isdst": "1",
+          "monthname": "November",
+          "monthname_short": "Nov",
+          "weekday_short": "Fri",
+          "weekday": "Friday",
+          "ampm": "PM",
+          "tz_short": "NZDT",
+          "tz_long": "Pacific/Auckland"
+        },
+        "period": 4,
+        "high": {
+          "fahrenheit": "70",
+          "celsius": "21"
+        },
+        "low": {
+          "fahrenheit": "47",
+          "celsius": "8"
+        },
+        "conditions": "Chance of Rain",
+        "icon": "chancerain",
+        "icon_url": "http://icons.wxug.com/i/c/k/chancerain.gif",
+        "skyicon": "",
+        "pop": 40,
+        "qpf_allday": {
+          "in": 0.02,
+          "mm": 1
+        },
+        "qpf_day": {
+          "in": 0.02,
+          "mm": 1
+        },
+        "qpf_night": {
+          "in": 0.00,
+          "mm": 0
+        },
+        "snow_allday": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "snow_day": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "snow_night": {
+          "in": 0.0,
+          "cm": 0.0
+        },
+        "maxwind": {
+          "mph": 25,
+          "kph": 40,
+          "dir": "N",
+          "degrees": 352
+        },
+        "avewind": {
+          "mph": 19,
+          "kph": 31,
+          "dir": "N",
+          "degrees": 352
+        },
+        "avehumidity": 54,
+        "maxhumidity": 0,
+        "minhumidity": 0
+      }]
+    }
+  }
+}
