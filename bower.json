@@ -2,17 +2,19 @@
   "name": "wunderground-forecast",
   "version": "1.0.0",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Mathew Winters <wintersandroid@winters.nz"
   ],
-  "description": "An element providing a solution to no problem in particular.",
+  "description": "An element providing a simple weather underground forecast.",
   "keywords": [
     "web-component",
     "polymer",
-    "seed"
+    "seed",
+    "weather",
+    "forecast"
   ],
   "main": "wunderground-forecast.html",
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/wintersandroid/wunderground-forecast/",
   "ignore": [
     "/.*",
     "/test/"
