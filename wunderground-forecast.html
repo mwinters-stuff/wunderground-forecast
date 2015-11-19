@@ -69,7 +69,7 @@ Example:
             <div class="temp_high">[[item.high.celsius]]</div>&nbsp/&nbsp
             <div class="temp_low">[[item.low.celsius]]</div>
           </div>
-          <iron-image src="[[item.icon_url]]" sizing="cover" preload fade style="width:50px; height:50px;"></iron-image>
+          <iron-image src="{{_getImageUrl(item.icon)}}" sizing="cover" preload fade style="width:50px; height:50px;"></iron-image>
           <div class="conditions">[[item.conditions]]</div>
         </div>
       </template>
@@ -115,6 +115,16 @@ Example:
         value: 2
       },
 
+      imageUrl:{
+        type: String,
+        value: 'http://icons.wxug.com/i/c/k/'
+      },
+
+      imageExtension:{
+        type: String,
+        value: 'gif'
+      },
+
       _data: Object,
       _url: String,
 
@@ -149,6 +159,10 @@ Example:
 //      console.log(response);
       this._data = response.detail.response.forecast;
       this._forecastLoaded();
+    },
+
+    _getImageUrl: function(icon){
+      return this.imageUrl + icon + '.' + this.imageExtension;
     },
 
   });
