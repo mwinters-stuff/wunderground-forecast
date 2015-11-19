@@ -115,14 +115,32 @@ Example:
         value: 2
       },
 
+      /**
+       * `imageUrl` alternate url to get weather icons from
+       *
+       * Also set `imageExtension`
+       */
       imageUrl:{
         type: String,
         value: 'http://icons.wxug.com/i/c/k/'
       },
 
+      /**
+       * `imageExtension` the extension of the weather icons
+       *
+       */
       imageExtension:{
         type: String,
         value: 'gif'
+      },
+
+      /**
+       * `autoStart` set to true to start updates automatically.
+       *
+       */
+      autoStart:{
+        type: Boolean,
+        value: false
       },
 
       _data: Object,
@@ -131,11 +149,44 @@ Example:
     },
     // Element Behavior
 
+    ready: function(){
+      this.minutesToUpdate = 0;
+    },
+
     attached: function() {
-      this.loadForecast();
-      window.setInterval(function(){
+      if(this.autoStart === true){
         this.loadForecast();
-      }.bind(this),1000 * 60 * this.updateHours);
+      }
+    },
+
+    /**
+     * The `stopUpdates` method will stop the update interval.
+     */
+    stopUpdates: function(){
+      if(this._intervalId){
+        window.clearInterval(this._intervalId);
+      }
+    },
+
+    /**
+     * The `startUpdates` method will start the update interval.
+     */
+    startUpdates: function(){
+      if(this.minutesToUpdate === 0){
+        this.loadForecast();
+      }
+
+      if(this.updateHours && this.updateHours > 0){
+        this._intervalId = window.setInterval(function(){
+          if(this.minutesToUpdate === 0){
+            this.minutesToUpdate = this.updateHours * 60;
+            this.loadForecast();
+          }else{
+            this.minutesToUpdate--;
+          }
+
+        }.bind(this),1000 * 60);
+      }
     },
 
     /**
@@ -148,7 +199,7 @@ Example:
     },
 
     /**
-     * The loadForecast method will load or update the forecast.
+     * The `loadForecast` method will load or update the forecast.
      */
     loadForecast: function() {
       this._url = this.key === "demo" ? "forecast.json" : "https://api.wunderground.com/api/" + this.key + "/geolookup/conditions/forecast/q/" + this.country + "/" + this.city + ".json";
