@@ -132,7 +132,27 @@ Example:
     // Element Behavior
 
     attached: function() {
-      this.loadForecast();
+      if (this.country && this.city) {
+        this.loadForecast();
+      } else {
+        var nogps_js = document.createElement('script');
+        nogps_js.setAttribute("type","text/javascript");
+        nogps_js.onload = function() {
+          // @see https://nogps.io/
+          NoGPS.getLocation(function(location) {
+            if (!this.country) {
+              this.country = location.country_iso_code;
+            }
+            if (!this.city) {
+              this.city = location.city;
+            }
+            this.loadForecast();
+          }.bind(this));
+        }.bind(this);
+        nogps_js.setAttribute("src", "//api.nogps.io/v1.js");
+        document.getElementsByTagName("head")[0].appendChild(nogps_js);
+      }
+
       window.setInterval(function(){
         this.loadForecast();
       }.bind(this),1000 * 60 * this.updateHours);
