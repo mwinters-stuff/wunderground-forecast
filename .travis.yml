@@ -1,4 +1,7 @@
 language: node_js
+branches:
+  except:
+    - gh_pages
 sudo: false
 before_script:
   - npm install web-component-tester
@@ -19,4 +22,4 @@ addons:
       - google-chrome-stable
 script:
   - xvfb-run wct
-  - "if [ \"${TRAVIS_PULL_REQUEST}\" = \"false\" ]; then wct -s 'default'; fi"
+  - "if [ \"${TRAVIS_PULL_REQUEST}\" = \"false\" ]; then wct --plugin sauce; fi"
