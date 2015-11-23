@@ -13,9 +13,21 @@ module.exports = {
         'OS X 10.10/chrome',
         'OS X 10.10/firefox',
         'OS X 10.10/safari',
-        'Windows 7/internet explorer/10.0',
-        'Windows 7/internet explorer/11.0',
-        'Windows 10/MicrosoftEdge/20.10240',
+        {
+            platform: 'Windows 7',
+            browserName: 'internet explorer',
+            version: '10.0',
+        },
+        {
+            platform: 'Windows 7',
+            browserName: 'internet explorer',
+            version: '11.0',
+        },
+        {
+            platform: 'Windows 7',
+            browserName: 'MicrosoftEdge',
+        },
+      
         'Windows 7/chrome',
         'Windows 10/firefox',
 
