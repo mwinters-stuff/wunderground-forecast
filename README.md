@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/wintersandroid/wunderground-forecast.svg?branch=master)](https://travis-ci.org/wintersandroid/wunderground-forecast)
 # wunderground-forecast
 
 An element providing a 3 day forcast from weather underground.
