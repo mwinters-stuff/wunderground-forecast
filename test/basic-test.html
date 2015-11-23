@@ -164,7 +164,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               var divToday = divs[0];
               var forecastdate = divToday.querySelector('.forecastdate');
               expect(forecastdate).to.be.ok;
-              expect(forecastdate.outerText).to.equal('Today');
+              expect(forecastdate.outerText || forecastdate.textContent.trim()).to.equal('Today');
 
 
 

@@ -29,6 +29,7 @@ Example:
         box-sizing: border-box;*/
         @apply(--paper-font-caption);
       }
+
       div.outer {
         margin-left: 2px;
         margin-right: 2px;
@@ -43,25 +44,27 @@ Example:
         width: auto;
         margin-left: 4px;
         margin-right: 4px;
-         @apply(--layout-vertical);
-         @apply(--layout-center);
-         /*@apply(--layout-flex);*/
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+        /*@apply(--layout-flex);*/
       }
 
       div.horizontal_temps {
-         @apply(--layout-horizontal);
+        @apply(--layout-horizontal);
       }
+
       div.temp_high {
         color: var(--paper-red-900);
         font-weight: bold;
       }
+
       div.temp_low {
         color: var(--paper-blue-900);
         font-weight: bold;
       }
-      div.forecastdate{
-        font-weight: bold;
 
+      div.forecastdate {
+        font-weight: bold;
       }
     </style>
     <div class="outer">
@@ -118,7 +121,7 @@ Example:
        *
        * Use 0 to disable.
        */
-      updateHours:{
+      updateHours: {
         type: Number,
         value: 2
       },
@@ -128,7 +131,7 @@ Example:
        *
        * Also set `imageExtension`
        */
-      imageUrl:{
+      imageUrl: {
         type: String,
         value: 'http://icons.wxug.com/i/c/k/'
       },
@@ -137,7 +140,7 @@ Example:
        * `imageExtension` the extension of the weather icons
        *
        */
-      imageExtension:{
+      imageExtension: {
         type: String,
         value: 'gif'
       },
@@ -146,7 +149,7 @@ Example:
        * `autoStart` set to true to start updates automatically.
        *
        */
-      autoStart:{
+      autoStart: {
         type: Boolean,
         value: false
       },
@@ -157,12 +160,12 @@ Example:
     },
     // Element Behavior
 
-    ready: function(){
+    ready: function() {
       this.minutesToUpdate = 0;
     },
 
     attached: function() {
-      if(this.autoStart === true){
+      if (this.autoStart === true) {
         this.loadForecast();
       }
     },
@@ -170,8 +173,8 @@ Example:
     /**
      * The `stopUpdates` method will stop the update interval.
      */
-    stopUpdates: function(){
-      if(this._intervalId){
+    stopUpdates: function() {
+      if (this._intervalId) {
         window.clearInterval(this._intervalId);
       }
     },
@@ -179,21 +182,21 @@ Example:
     /**
      * The `startUpdates` method will start the update interval.
      */
-    startUpdates: function(){
-      if(this.minutesToUpdate === 0){
+    startUpdates: function() {
+      if (this.minutesToUpdate === 0) {
         this.loadForecast();
       }
 
-      if(this.updateHours && this.updateHours > 0){
-        this._intervalId = window.setInterval(function(){
-          if(this.minutesToUpdate === 0){
+      if (this.updateHours && this.updateHours > 0) {
+        this._intervalId = window.setInterval(function() {
+          if (this.minutesToUpdate === 0) {
             this.minutesToUpdate = this.updateHours * 60;
             this.loadForecast();
-          }else{
+          } else {
             this.minutesToUpdate--;
           }
 
-        }.bind(this),1000 * 60);
+        }.bind(this), 1000 * 60);
       }
     },
 
@@ -215,19 +218,19 @@ Example:
     },
 
     _handleResponse: function(response) {
-//      console.log(response);
+      //      console.log(response);
       //this._data = response.detail.response.forecast;
       this._forecastLoaded();
     },
 
-    _getImageUrl: function(icon){
+    _getImageUrl: function(icon) {
       return this.imageUrl + icon + '.' + this.imageExtension;
     },
 
-    _isEq: function(index,value){
+    _isEq: function(index, value) {
       return index === value;
     },
-    _isGt: function(index,value){
+    _isGt: function(index, value) {
       return index > value;
     },
 
