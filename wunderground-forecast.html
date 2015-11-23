@@ -59,12 +59,20 @@ Example:
         color: var(--paper-blue-900);
         font-weight: bold;
       }
+      div.forecastdate{
+        font-weight: bold;
+
+      }
     </style>
     <div class="outer">
 
-      <template is="dom-repeat" items="[[_data.simpleforecast.forecastday]]">
+      <template is="dom-repeat" items="[[_data.forecast.simpleforecast.forecastday]]" index-as="idx">
         <div class="wrapper">
-          <div class="forecastdate">[[item.date.weekday_short]] [[item.date.day]]/[[item.date.month]]</div>
+          <div class="forecastdate">
+            <template is="dom-if" if="{{_isEq(idx,0)}}">Today</template>
+            <template is="dom-if" if="{{_isEq(idx,1)}}">Tomorrow</template>
+            <template is="dom-if" if="{{_isGt(idx,1)}}">[[item.date.weekday_short]] [[item.date.day]]/[[item.date.month]]</template>
+          </div>
           <div class="horizontal_temps">
             <div class="temp_high">[[item.high.celsius]]</div>&nbsp/&nbsp
             <div class="temp_low">[[item.low.celsius]]</div>
@@ -74,7 +82,7 @@ Example:
         </div>
       </template>
     </div>
-    <iron-ajax id="forecastLoader" url="[[_url]]" handle-as="json" on-response="_handleResponse"></iron-ajax>
+    <iron-ajax id="forecastLoader" url="[[_url]]" handle-as="json" on-response="_handleResponse" last-response="{{_data}}" verbose></iron-ajax>
   </template>
 
 </dom-module>
@@ -208,13 +216,21 @@ Example:
 
     _handleResponse: function(response) {
 //      console.log(response);
-      this._data = response.detail.response.forecast;
+      //this._data = response.detail.response.forecast;
       this._forecastLoaded();
     },
 
     _getImageUrl: function(icon){
       return this.imageUrl + icon + '.' + this.imageExtension;
     },
+
+    _isEq: function(index,value){
+      return index === value;
+    },
+    _isGt: function(index,value){
+      return index > value;
+    },
+
 
   });
 </script>

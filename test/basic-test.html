@@ -28,10 +28,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
 
   <!-- You can use the document as a place to set up your fixtures. -->
-  <wunderground-forecast key="test" country="NZ" city="CHC"></wunderground-forecast>
+  <wunderground-forecast id="test1" key="test" country="NZ" city="CHC"></wunderground-forecast>
+  <wunderground-forecast id="test2" key="test" country="NZ" city="CHC"></wunderground-forecast>
 
   <script>
-    var myEl = document.querySelector('wunderground-forecast');
+    var myEl1 = document.querySelector('wunderground-forecast#test1');
+    var myEl2 = document.querySelector('wunderground-forecast#test2');
 
     suite('<wunderground-forecast>', function() {
 
@@ -51,7 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         server.respondWith(
           'GET',
 
-          'http://api.wunderground.com/api/test/geolookup/conditions/forecast/q/NZ/CHC.json', [
+          'https://api.wunderground.com/api/test/geolookup/conditions/forecast/q/NZ/CHC.json', [
             200,
             {'Content-Type': 'application/json'},
             '{ "response": { "version": "0.1", "termsofService": "http://www.wunderground.com/weather/api/d/terms.html", "features": { "forecast": 1 } },'+
@@ -106,33 +108,77 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         );
       });
 
-
-
-      test('get forecast', function(done) {
-        myEl.addEventListener('wunderground-forecast-loaded', function(event) {
-          expect(myEl._data).to.be.ok;
-          expect(myEl._data.simpleforecast).to.be.ok;
-          expect(myEl._data.txt_forecast).to.be.ok;
-          expect(myEl._data.txt_forecast.forecastday).to.be.length(8);
-          var today = myEl._data.txt_forecast.forecastday[0];
-          expect(today).to.be.ok;
-
-          expect(today.period).to.equal(0);
-          expect(today.icon).to.equal('rain');
-          expect(today.title).to.equal('Tuesday');
-
-
-          console.log('today',today);
-          done();
-        });
-        myEl.loadForecast();
-        server.respond();
-      });
-
-
       teardown(function() {
         server.restore();
       });
+
+      suite('initial forcast get', function() {
+        test('get forecast', function(done) {
+          myEl1.addEventListener('wunderground-forecast-loaded', function(event) {
+            myEl1.stopUpdates();
+            expect(myEl1._data).to.be.ok;
+            expect(myEl1._data.forecast).to.be.ok;
+            expect(myEl1._data.forecast.simpleforecast).to.be.ok;
+            expect(myEl1._data.forecast.txt_forecast).to.be.ok;
+            expect(myEl1._data.forecast.txt_forecast.forecastday).to.be.length(8);
+            expect(myEl1._data.forecast.simpleforecast.forecastday).to.be.length(4);
+
+            var today = myEl1._data.forecast.simpleforecast.forecastday[0];
+            expect(today).to.be.ok;
+            expect(today.date).to.be.ok;
+            expect(today.date.epoch).to.equal('1447740000');
+            expect(today.period).to.equal(1);
+            expect(today.high.celsius).to.equal('18');
+            expect(today.low.celsius).to.equal('7');
+            expect(today.conditions).to.equal('Rain');
+            expect(today.icon).to.equal('rain');
+
+            var tomorrow = myEl1._data.forecast.simpleforecast.forecastday[1];
+            expect(tomorrow).to.be.ok;
+            expect(tomorrow.date).to.be.ok;
+            expect(tomorrow.date.epoch).to.equal('1447826400');
+            expect(tomorrow.period).to.equal(2);
+            expect(tomorrow.high.celsius).to.equal('12');
+            expect(tomorrow.low.celsius).to.equal('4');
+            expect(tomorrow.conditions).to.equal('Partly Cloudy');
+            expect(tomorrow.icon).to.equal('partlycloudy');
+            done();
+          });
+          myEl1.startUpdates();
+          server.respond();
+        });
+      });
+
+      suite('UI Tests', function() {
+
+        test('ui test', function(done) {
+          myEl2.addEventListener('wunderground-forecast-loaded', function(event) {
+            myEl2.stopUpdates();
+            flush(function(){
+              expect(myEl2._data).to.be.ok;
+
+              var divs = myEl2.querySelectorAll('div.wrapper');
+              expect(divs).to.be.ok;
+              expect(divs).to.be.length(4);
+
+              var divToday = divs[0];
+              var forecastdate = divToday.querySelector('.forecastdate');
+              expect(forecastdate).to.be.ok;
+              expect(forecastdate.outerText).to.equal('Today');
+
+
+
+
+              done();
+            });
+          });
+          myEl2.startUpdates();
+          server.respond();
+        });
+      });
+
+
+
 
     });
   </script>
