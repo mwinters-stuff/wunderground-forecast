@@ -24,10 +24,10 @@ module.exports = {
             version: '11.0',
         },
         {
-            platform: 'Windows 7',
+            platform: 'Windows 10',
             browserName: 'MicrosoftEdge',
         },
-      
+
         'Windows 7/chrome',
         'Windows 10/firefox',
 
