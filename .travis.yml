@@ -1,26 +1,27 @@
 language: node_js
-branches:
-  except:
-    - gh_pages
-sudo: false
+sudo: required
 before_script:
-  - npm install web-component-tester
-  - npm install bower
-  - 'export PATH=$PWD/node_modules/.bin:$PATH'
+  - npm install -g bower polylint web-component-tester
   - bower install
-#env:
-#  global:
-#    - secure: hRC0relOOVO3kqrrnBe1sAaYIMRzcDJTdzemzNxHMt/6f1+4RDt+VsSZtDZ7ax5v6RIUioiCFDgP7GVAzeGkK6AmBoLjzbcUXodS4KDY1oJfhXpuuHrFFN//ZOIsfFXcqf2641cC0vmpg2ztTYfGEVknpmf+9ruWAauBEgzsIhM=
-#    - secure: jH6XJuB05Tkg4433BXfIOeLR6XkkuUz4yUpv+WjOBe2dCsN3sYYg/7u6FFVw4hKrPt58mKfp2KC1DhPws9GR+/F6ky99a27y+Al0AZL+lVdy+lPJ05SjX3sr2mXA8He7y+EnbCZdu73X8R2KZNvj021JbnZufBqUzmzDq/amtU4=
-node_js: 4
+#  - polylint
+env:
+  global:
+#    - secure: NCk3KK+wbaXMzp8XAY6FeL+TSdI0AlPI3/tl0OpsUIaU2EiCjQuzf/UpyzCW5XZMEVFF4q/eDjrPkqJodHfpngj36mpkfmfqj9DrgDmYsV9BDvsTd8KmLsA6H8D6p7Qer+r1JMMB8PvX44vdhQ6GhZD1HFNYK1Ekpt0TkYwWKNw=
+#    - secure: TGgUEQe6FJS+GuYk94d//8YQmDLUu0ekMvPSIs8TQ2QkdBK4SL+2bSXZt44BbDEOwc9P4NCPSUx/RMiCAqsc5OGRJImzb/zqPNIDTeKG6q72HPBBBD3Sk0CrEpTQbOK/Flaa/B7RYR0U1kuljSmRS7lPG19nnY8gOHnIAgwIyk0=
+node_js: stable
 addons:
-  firefox: latest
+#  firefox: latest
   apt:
     sources:
       - google-chrome
     packages:
       - google-chrome-stable
+  sauce_connect: false
 script:
   - xvfb-run wct
   - bash ./gpages_build.sh wintersandroid wunderground-forecast travis androidapps@winters.org.nz
-#  - "if [ \"${TRAVIS_PULL_REQUEST}\" = \"false\" ]; then wct --plugin sauce; fi"
+#  - "if [ \"${TRAVIS_PULL_REQUEST}\" = \"false\" ]; then wct -s 'default'; fi"
+dist: trusty
+
+
+
