@@ -22,6 +22,8 @@ script:
   - bash ./gpages_build.sh wintersandroid wunderground-forecast travis androidapps@winters.org.nz
 #  - "if [ \"${TRAVIS_PULL_REQUEST}\" = \"false\" ]; then wct -s 'default'; fi"
 dist: trusty
-
+branches:
+  only:
+    - master
 
 
