@@ -1,6 +1,6 @@
 {
   "name": "wunderground-forecast",
-  "version": "2.0-preview",
+  "version": "^2.0.0",
   "authors": [
     "Mathew Winters <wintersandroid@winters.nz"
   ],
@@ -20,38 +20,38 @@
     "/test/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#2.0-preview",
-    "iron-ajax": "PolymerElements/iron-ajax#2.0-preview",
-    "iron-image": "polymerelements/iron-image#2.0-preview"
+    "polymer": "Polymer/polymer#^2.0.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^2.0.0",
+    "iron-image": "polymerelements/iron-image#^2.0.0"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#2.0-preview",
+    "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
     "test-fixture": "polymerelements/test-fixture#2.0.1",
     "web-component-tester": "*"
   },
   "resolutions": {
     "webcomponentsjs": "v1",
-    "iron-flex-layout": "2.0-preview",
-    "polymer": "2.0-preview",
+    "iron-flex-layout": "^2.0.0",
+    "polymer": "^2.0.0",
     "hydrolysis": "hydrolysis-1.x",
-    "iron-doc-viewer": "2.0-preview",
-    "marked-element": "2.0-preview",
-    "paper-button": "2.0-preview",
-    "paper-ripple": "2.0-preview",
-    "iron-a11y-keys-behavior": "2.0-preview",
-    "paper-behaviors": "2.0-preview",
-    "iron-behaviors": "2.0-preview",
-    "iron-checked-element-behavior": "2.0-preview",
-    "iron-validatable-behavior": "2.0-preview",
-    "iron-meta": "2.0-preview",
-    "iron-form-element-behavior": "2.0-preview",
-    "prism-element": "2.0-preview",
-    "iron-icons": "2.0-preview",
-    "iron-icon": "2.0-preview",
-    "iron-iconset-svg": "2.0-preview",
-    "iron-selector": "2.0-preview",
-    "paper-styles": "2.0-preview",
+    "iron-doc-viewer": "^2.0.0",
+    "marked-element": "^2.0.0",
+    "paper-button": "^2.0.0",
+    "paper-ripple": "^2.0.0",
+    "iron-a11y-keys-behavior": "^2.0.0",
+    "paper-behaviors": "^2.0.0",
+    "iron-behaviors": "^2.0.0",
+    "iron-checked-element-behavior": "^2.0.0",
+    "iron-validatable-behavior": "^2.0.0",
+    "iron-meta": "^2.0.0",
+    "iron-form-element-behavior": "^2.0.0",
+    "prism-element": "^2.0.0",
+    "iron-icons": "^2.0.0",
+    "iron-icon": "^2.0.0",
+    "iron-iconset-svg": "^2.0.0",
+    "iron-selector": "^2.0.0",
+    "paper-styles": "^2.0.0",
     "test-fixture": "2.0.1",
-    "iron-ajax": "2.0-preview"
+    "iron-ajax": "^2.0.0"
   }
 }
