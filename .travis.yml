@@ -3,7 +3,7 @@ sudo: required
 before_script:
   - npm install -g bower polylint web-component-tester
   - bower install
-#  - polylint
+  - polylint
 env:
   global:
 #    - secure: NCk3KK+wbaXMzp8XAY6FeL+TSdI0AlPI3/tl0OpsUIaU2EiCjQuzf/UpyzCW5XZMEVFF4q/eDjrPkqJodHfpngj36mpkfmfqj9DrgDmYsV9BDvsTd8KmLsA6H8D6p7Qer+r1JMMB8PvX44vdhQ6GhZD1HFNYK1Ekpt0TkYwWKNw=
@@ -19,11 +19,5 @@ addons:
   sauce_connect: false
 script:
   - xvfb-run wct
-  - bash ./gpages_build.sh wintersandroid wunderground-forecast travis androidapps@winters.org.nz
 #  - "if [ \"${TRAVIS_PULL_REQUEST}\" = \"false\" ]; then wct -s 'default'; fi"
 dist: trusty
-branches:
-  only:
-    - master
-
-
