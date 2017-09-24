@@ -18,7 +18,7 @@ addons:
   sauce_connect: false
 script:
   - xvfb-run wct
-#  - "if [ \"${TRAVIS_PULL_REQUEST}\" = \"false\" ]; then wct -s 'default'; fi"
+  - "bash ./gpages_build.sh wintersandroid wind-direction-indicator travis androidapps@winters.org.nz"
 dist: trusty
 branches:
   only:
