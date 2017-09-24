@@ -1,0 +1,251 @@
+<!--
+@license
+Copyright (c) 2015 Mathew Winters. All rights reserved.
+-->
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-styles/typography.html">
+<link rel="import" href="../paper-styles/color.html">
+<!--
+An element providing a 3 day forecast from weatherunderground
+
+Example:
+
+    <wunderground-forecast key="apikey" country="NZ" city="Christchurch"></wunderground-forecast>
+
+@group seed Elements
+@element wunderground-forecast
+@demo demo/index.html
+@hero hero.svg
+-->
+<dom-module id="wunderground-forecast">
+
+  <template>
+    <style>
+       :host {
+        /*display: block;
+        box-sizing: border-box;*/
+        @apply(--paper-font-caption);
+      }
+
+      div.outer {
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+        @apply(--layout-center-justified);
+      }
+
+      div.wrapper {
+        width: auto;
+        margin-left: 4px;
+        margin-right: 4px;
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+      }
+
+      div.horizontal_temps {
+        @apply(--layout-horizontal);
+      }
+
+      div.temp_high {
+        color: var(--paper-red-900);
+        font-weight: bold;
+      }
+
+      div.temp_low {
+        color: var(--paper-blue-900);
+        font-weight: bold;
+      }
+
+      div.forecastdate {
+        font-weight: bold;
+      }
+    </style>
+    <div class="outer">
+
+      <template is="dom-repeat" items="[[_data.forecast.simpleforecast.forecastday]]" index-as="idx">
+        <div class="wrapper">
+          <div class="forecastdate">
+            <template is="dom-if" if="{{_isEq(idx,0)}}">Today</template>
+            <template is="dom-if" if="{{_isEq(idx,1)}}">Tomorrow</template>
+            <template is="dom-if" if="{{_isGt(idx,1)}}">[[item.date.weekday_short]] [[item.date.day]]/[[item.date.month]]</template>
+          </div>
+          <div class="horizontal_temps">
+            <div class="temp_high">[[item.high.celsius]]</div>&nbsp/&nbsp
+            <div class="temp_low">[[item.low.celsius]]</div>
+          </div>
+          <iron-image src="{{_getImageUrl(item.icon)}}" sizing="cover" preload fade style="width:50px; height:50px;"></iron-image>
+          <div class="conditions">[[item.conditions]]</div>
+        </div>
+      </template>
+    </div>
+    <iron-ajax id="forecastLoader" url="[[_url]]" handle-as="json" on-response="_handleResponse" last-response="{{_data}}" verbose></iron-ajax>
+  </template>
+
+
+  <script>
+    class WundergroundForecast extends Polymer.Element {
+
+      static get is() { return 'wunderground-forecast'; }
+      static get properties() {
+        return {
+          /**
+           * `key` is your weather underground api key.
+           *
+           * Use `demo` to load the demo data.
+           */
+          key: String,
+
+          /**
+           * `country` is the country, eg NZ or New Zealand.
+           *
+           * Or state for US Forecasts
+           */
+          country: String,
+
+          /**
+           * `city` is the city, eg CHC or Christchurch.
+           */
+          city: String,
+
+          /**
+           * `updateHours` is the number of hours between updateHours
+           *
+           * Use 0 to disable.
+           */
+          updateHours: {
+            type: Number,
+            value: 2
+          },
+
+          /**
+           * `imageUrl` alternate url to get weather icons from
+           *
+           * Also set `imageExtension`
+           */
+          imageUrl: {
+            type: String,
+            value: 'http://icons.wxug.com/i/c/k/'
+          },
+
+          /**
+           * `imageExtension` the extension of the weather icons
+           *
+           */
+          imageExtension: {
+            type: String,
+            value: 'gif'
+          },
+
+          /**
+           * `autoStart` set to true to start updates automatically.
+           *
+           */
+          autoStart: {
+            type: Boolean,
+            value: false
+          },
+
+          _data: Object,
+          _url: String,
+
+        }
+      };
+
+      // Element Behavior
+
+      constructor() {
+        super();
+        this.minutesToUpdate = 0;
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+
+        if (this.autoStart === true) {
+          this.loadForecast();
+        }
+      }
+
+      /**
+       * The `stopUpdates` method will stop the update interval.
+       */
+      stopUpdates() {
+        if (this._intervalId) {
+          window.clearInterval(this._intervalId);
+        }
+      }
+
+      /**
+       * The `startUpdates` method will start the update interval.
+       */
+      startUpdates() {
+        if (this.minutesToUpdate === 0) {
+          this.loadForecast();
+        }
+
+        if (this.updateHours && this.updateHours > 0) {
+          this._intervalId = window.setInterval(function () {
+            if (this.minutesToUpdate === 0) {
+              this.minutesToUpdate = this.updateHours * 60;
+              this.loadForecast();
+            } else {
+              this.minutesToUpdate--;
+            }
+
+          }.bind(this), 1000 * 60);
+        }
+      }
+
+      /**
+       * The `wunderground-forecast-loaded` event is fired whenever the forecast is updated
+       *
+       * @event wunderground-forecast-loaded
+       */
+      _forecastLoaded() {
+        this.fire('wunderground-forecast-loaded');
+      }
+
+      /**
+       * The `loadForecast` method will load or update the forecast.
+       */
+      loadForecast() {
+        this._url = this.key === "demo" ? "forecast.json" : "https://api.wunderground.com/api/" + this.key + "/geolookup/conditions/forecast/q/" + this.country + "/" + this.city + ".json";
+        this.$.forecastLoader.generateRequest();
+      }
+
+      _handleResponse(response) {
+        //      console.log(response);
+        //this._data = response.detail.response.forecast;
+        this._forecastLoaded();
+      }
+
+      _getImageUrl(icon) {
+        return this.imageUrl + icon + '.' + this.imageExtension;
+      }
+
+      _isEq(index, value) {
+        return index === value;
+      }
+
+      _isGt(index, value) {
+        return index > value;
+      }
+
+      fire(ev, data) {
+        this.dispatchEvent(new CustomEvent(ev, {
+          detail: data        
+}), { bubbles: true });
+      }
+
+
+    }
+    customElements.define(WundergroundForecast.is, WundergroundForecast);
+
+  </script>
+</dom-module>
